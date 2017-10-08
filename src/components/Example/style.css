@@ -1,0 +1,12 @@
+/*.hello {
+  color: blue;
+  background: url('./demo.png');
+  background: blue;
+}*/
+
+#t1 {
+  /*color: blue;*/
+  /*background: url('./demo.png');*/
+  background: #F0F8FF;
+  font-size: 3em;
+}

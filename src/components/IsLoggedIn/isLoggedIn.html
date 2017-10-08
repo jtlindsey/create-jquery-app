@@ -1,0 +1,130 @@
+<div class="wrapper"> 
+  <div class="main-left"></div>
+  <div class="main"></div>
+</div>
+
+<script>
+$(document).ready(function() {
+  
+suiteState = {};
+
+let suite = {
+  active: '', // suite1, suite2, etc
+  content: {
+    suite1: [
+      {path: 'suite1/page1', content: suiteContent.suite1.example1, title: 'Suite1 Example1'},
+      {path: 'suite1/page2', content: suiteContent.suite1.example2, title: 'Suite1 Example2'},
+    ],
+    suite2: [
+      {path: 'suite2/page1', content: suiteContent.suite2.example1, title: 'Suite2 Example1'},
+      {path: 'suite2/page2', content: suiteContent.suite2.example2, title: 'Suite2 Example2'},
+      {path: 'suite2/page3', content: suiteContent.suite2.example3, title: 'Suite2 Example3'},
+    ] 
+  }
+};
+
+nLeft = {
+  suite1: `
+    <li><a href="#xlink-suite1/page1">Page 1 Suite1</a></li>
+    <li><a href="#xlink-suite1/page2">Page 2 Suite1</a></li>
+    <li><a href="#xlink-suite2/page1">Page 1 Suite2</a></li>`,
+  suite2: `
+    <li><a href="#xlink-suite2/page1">Page 1 Suite2</a></li>
+    <li><a href="#xlink-suite2/page2">Page 2 Suite2</a></li>
+    <li><a href="#xlink-suite1/page1">Page 1 Suite1</a></li>
+    <li><a href="#xlink-suite2/page3">Page 3 Suite2</a></li>`
+};
+
+function contentUpdate(basePath, path) {
+  switch (true) {
+    case !Object.keys(suite.content).includes(suite.active):
+    case suite.content[basePath] === undefined:
+      $('#loadpartial').html("No content, or home");
+      document.title = 'No content, or home';
+      break;
+    default:
+      let ur = suite.content[basePath].find(x => {
+        switch (true) {
+          case x.path === path:
+            return true
+            break;
+          default:
+            return false
+            break;
+        };
+      });
+      if (ur === undefined) {
+        $('#loadpartial').html('No matching path');
+        // update page title
+        document.title = 'No matching path';
+      } else {
+        $('#loadpartial').html(ur.content);
+        // update page title
+        document.title = ur.title;
+      };
+      break;
+  };
+};
+
+function updateNavLeftClass(path) {
+  // update active nav-left links
+  $("#navleft-ul > li > a").each(function(i, e) {
+    if ($(this).attr('href') === `#xlink-${path}`) {
+      $(this).addClass('active');
+    };
+  });
+};
+
+function linkUpdate(basePath, path) {
+  if (basePath === path && path === '') {
+    // home, reconfigure later
+    $("#navleft-ul > li > a").removeClass('active');
+    $("#navtop-ul > li > a").removeClass('active');
+  } else if (suite.active === basePath) {
+    // your already in the suite
+    // remove active class for left nav
+    $("#navleft-ul > li > a").removeClass('active');
+    $("#navtop-ul > li > a").removeClass('active');
+    $(`#navtop-ul > li > a[href^="#xlink-${basePath}"]`).addClass('active');
+    updateNavLeftClass(path);
+  } else {
+    // build the left nav associated with this suite view
+    // and remove active class for left & top nav
+    $("#navleft-ul > li > a").removeClass('active');
+    $("#navtop-ul > li > a").removeClass('active');
+    // update active class navtop
+    suite.active = basePath, // suite1, suite2, etc
+    $(`#navtop-ul > li > a[href^="#xlink-${basePath}"]`).addClass('active');
+    // build left nav
+    $('#navleft-ul').html(nLeft[basePath]);
+    updateNavLeftClass(path);
+  };
+  contentUpdate(basePath, path);
+}
+
+// update links on page load
+linkUpdate(window.location.pathname.substr(1).split('/')[0], window.location.pathname.substr(1) );
+
+activateNavClickListener = () => {
+  // listen for click and prevent default   
+  // one click handle many herf
+  $(document).on('click', 'a[href^="#xlink-"]', function (e) {
+    e.preventDefault();
+    let path = $(this).attr('href').split('#xlink-')[1];
+    let basePath = path.split('/')[0];
+    linkUpdate(basePath, path);
+    appHelper.browserHistoryMgmt(path);
+  }); 
+};
+activateNavClickListener();
+
+// re-run link update on back button
+window.addEventListener("popstate", function(e) {
+  let path = window.location.pathname.substr(1);
+  let basePath = path.split('/')[0];
+  linkUpdate(basePath, path);
+});
+
+
+});
+</script>

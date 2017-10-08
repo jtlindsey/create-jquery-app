@@ -1,0 +1,21 @@
+<div class="navtop">
+  <nav>
+    <ul id="navtop-ul">
+      <li><a href="#xlink-suite1">Suite 1</a></li>
+      <li><a href="#xlink-suite2">Suite 2e</a></li>
+
+      <li style="float: right"><a href="#xlink-" id="logout" class=xlink">Logout <i class="fa fa-sign-out"></i></a></li>
+
+      <li id="nav-cog" style="float: right"><a href="#xlink-settings" id="settings">Hello <%= user.name %> <i class="fa fa-cog fa-1x fa-fw"></i></a></li>
+
+    </ul>
+  </nav>
+</div>
+
+<script>
+$("#nav-cog").hover(function(){
+  $(this).find("i").addClass("fa-spin");
+  }, function(){
+  $(this).find("i").removeClass("fa-spin");
+});
+</script>

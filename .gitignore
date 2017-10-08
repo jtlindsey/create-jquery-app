@@ -1,0 +1,9 @@
+# misc
+.DS_Store
+.env
+npm-debug.log*
+
+# dependencies, ignore all node_modules directories
+node_modules/
+
+build/bundle.js
