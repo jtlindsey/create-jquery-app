@@ -2,7 +2,9 @@
 
 Why use React, Angular, Vue, etc if you are using any jQuery?
 ----
- If you need jQuery for anything in your React, Angular, Vue, etc app, why not just jQuery the whole thing? Many of the imporvements seen from projects like React in development and production performance come from their rendering engine PLUS tools like HotModuleReplacementPlugin, bundling and minification, reusing code, seperating sections into modules/components, and using state to easily track and control behavior. Many of these tools/conventions can be used without switching to React. And following many of the practices seen in React and other templating engines now can better prepare you to migrate to them in the future. 
+ If you need jQuery for anything in your React, Angular, Vue, etc app, why not just jQuery the whole thing? Many of the imporvements seen from projects like React in development and production performance come from their rendering engine PLUS tools like HotModuleReplacementPlugin, bundling and minification, reusing code, seperating sections into modules/components, and using state to easily track and control behavior. 
+
+ Many of these tools/conventions can be used without switching to React. And following many of the practices seen in React and other templating engines now can better prepare you to migrate to them in the future. You can reduce your jQuery dependencies one function, module or component at a time.
 
  jQuery doesn't play well in React. And some apps have difficult to replace dependencies like [jQuery Datatables.js](https://datatables.net/). Some React plugins come close to replacing jQuery datatables but none without error. After converting a large app to ReactJS failed because of timelines and lots of jQuery dependencies, I made some changes. I took some of the things I experienced from React and started re-factoring the jQuery app to perform more like a React app.
 
