@@ -17,7 +17,20 @@ module.exports = {
     // port: 8088,
     contentBase: './build',
     hot: true,    
-    historyApiFallback: true
+    historyApiFallback: true,
+    // proxy: {
+    //   '/test1_api/*': {
+    //     target: 'http://localhost:3228',
+    //     secure: false
+    //   }
+    // }
+    proxy: [
+      {
+        context: ['/test1_api/**', '/test2_api/**', '/test3_api/**'],
+        target: 'http://localhost:3228',
+        secure: false
+      }
+    ]
   },
   module: {
     rules: [

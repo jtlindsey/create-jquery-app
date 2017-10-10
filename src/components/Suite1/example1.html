@@ -5,3 +5,21 @@
 </style>
 <div id="s1">Example 1 from suite1</div>
 <div>Example 1 from suite1</div>
+<button id="test-proxy">Test Proxy</button>
+
+<script>
+$('#test-proxy').on('click', () => {
+  (async function() {
+    try {
+      let apiR = {
+        method: 'GET',
+        url: `/test1_api/order/${28858}`,
+      };
+      const api = await $.ajax(apiR);
+      console.log('api success', api);
+    } catch(err) {
+      console.log('api error', err);
+    };
+  })();
+});
+</script>
