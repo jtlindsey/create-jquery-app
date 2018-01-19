@@ -3,11 +3,19 @@
   background-color: #D2B48C;
 }
 </style>
-<div id="s1">Example 1 from suite1</div>
+
+<img id="testimg">
+
+<div id="s1">Example 8 1 from suite1</div>
 <div>Example 1 from suite1</div>
 <button id="test-proxy">Test Proxy</button>
 
 <script>
+
+// example adding an image
+$('#testimg').attr('src', avatar_mini);
+
+
 $('#test-proxy').on('click', () => {
   (async function() {
     try {

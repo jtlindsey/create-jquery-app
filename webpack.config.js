@@ -14,23 +14,36 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    // port: 8088,
+    // port: 3333, //custom dev server port
     contentBase: './build',
     hot: true,    
     historyApiFallback: true,
+    /*
+    These proxy examples assume you have another app running on 
+    localhost. Any request from this app that go to test1_api or
+    test2_api etc will be automatically routed to port 3334 in 
+    this example.
+    When running from production, the server for your index.html with bundle.js would handle
+    these api calls, likely from app.js with a 
+    "app.use('/test1_api/*', apiConnection.access_api)"
+    before your "app.get('/*', function(req, res){..." and apiConnection.access_api would be 
+    your "exports.access_api = (req, res, next) => {..." middleware handling the route;
+    */
+    // proxy example 1
     // proxy: {
     //   '/test1_api/*': {
-    //     target: 'http://localhost:3228',
+    //     target: 'http://localhost:3334',
     //     secure: false
     //   }
     // }
-    proxy: [
-      {
-        context: ['/test1_api/**', '/test2_api/**', '/test3_api/**'],
-        target: 'http://localhost:3228',
-        secure: false
-      }
-    ]
+    // proxy example 2
+    // proxy: [
+    //   {
+    //     context: ['/test1_api/**', '/test2_api/**', '/test3_api/**'],
+    //     target: 'http://localhost:3334',
+    //     secure: false
+    //   }
+    // ]
   },
   module: {
     rules: [

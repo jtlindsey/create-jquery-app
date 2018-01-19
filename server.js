@@ -1,3 +1,4 @@
+// not needed. here to illustrate running from server.js
 const express = require('express');
 const webpack = require('webpack');
 const app = express();

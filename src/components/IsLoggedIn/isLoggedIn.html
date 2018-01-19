@@ -9,6 +9,11 @@ $(document).ready(function() {
 suiteState = {};
 
 let suite = {
+/*
+set your sites and each link path here.
+the suite key name like "suite1" should match the key names chosen in isLoggedIn/content.js
+The "suiteContent" object below is found in isLoggedIn/content.js
+*/
   active: '', // suite1, suite2, etc
   content: {
     suite1: [
@@ -23,6 +28,12 @@ let suite = {
   }
 };
 
+
+/* 
+the script that handles links will look for "#xlink-"
+what comes after "-" should be the suite key name followed by "/" and the page name
+*/
+
 nLeft = {
   suite1: `
     <li><a href="#xlink-suite1/page1">Page 1 Suite1</a></li>
@@ -34,6 +45,12 @@ nLeft = {
     <li><a href="#xlink-suite1/page1">Page 1 Suite1</a></li>
     <li><a href="#xlink-suite2/page3">Page 3 Suite2</a></li>`
 };
+
+/*
+This function loads the content or the relative error if it finds no content
+It will only find content if the paths match the objects above and they
+properly correspond with suites and keys
+*/
 
 function contentUpdate(basePath, path) {
   switch (true) {
@@ -103,6 +120,7 @@ function linkUpdate(basePath, path) {
 }
 
 // update links on page load
+// this will allow you to load any page url and get the correct view 
 linkUpdate(window.location.pathname.substr(1).split('/')[0], window.location.pathname.substr(1) );
 
 activateNavClickListener = () => {
