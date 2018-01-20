@@ -1,4 +1,4 @@
-# AppSuite (multiple sites within a site) Version
+# Single Site Version
 
 # Proof of Concept
 
